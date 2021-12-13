@@ -1,0 +1,11 @@
+repositories:
+  - name: ibm-stable-charts
+    url: https://raw.githubusercontent.com/IBM/charts/master/repo/stable
+
+releases:
+  - name: ibm-mq
+    namespace: test
+    createNamespace: true
+    chart: ibm-stable-charts/ibm-mqadvanced-server-dev
+    values:
+      - ./ibm-mq.yaml

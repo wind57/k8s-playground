@@ -1,0 +1,3 @@
+how to mount a volume into an existing docker image:
+
+    docker run -v /Users/erabii784/Documents/comcast/snap/k8s-playground/src/main/resources/docker/volume:/mounted-volume: -it -p 8080:8080 test/dummy  /bin/bash

@@ -1,0 +1,12 @@
+shows that we can do:
+
+    set:
+      - name: rbac.create
+        value: false
+
+in the helmfile itself. Running this :
+
+    helmfile --interactive --file helmfile-prometheus-rbac.yaml apply --wait
+
+    helmfile --interactive --file helmfile-prometheus-rbac.yaml destroy
+

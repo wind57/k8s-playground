@@ -1,0 +1,4 @@
+We first need to create the cluster with proper audit policy for the kube-api server:
+
+    kind create cluster --config=cluster.yaml --name spring-k8s --wait 10m -v 256
+

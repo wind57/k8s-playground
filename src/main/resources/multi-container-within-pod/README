@@ -1,0 +1,3 @@
+the purpose here is trivial: pods vs containers and how a container can access
+pod's ip (localhost). that is, from within the sidecar container we can issue a:
+"curl localhost:80" and get the result from nginx-controller.

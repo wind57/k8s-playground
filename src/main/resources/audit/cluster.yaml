@@ -1,0 +1,32 @@
+apiVersion: kind.x-k8s.io/v1alpha4
+kind: Cluster
+nodes:
+  - role: control-plane
+    kubeadmConfigPatches:
+      - |
+        kind: ClusterConfiguration
+        apiServer:
+          extraArgs:
+            audit-log-path: /var/log/kubernetes/kube-apiserver-audit.log
+            audit-policy-file: /etc/kubernetes/policies/audit-policy.yaml
+          extraVolumes:
+            - name: audit-policies
+              hostPath: /etc/kubernetes/policies
+              mountPath: /etc/kubernetes/policies
+              readOnly: true
+              pathType: "DirectoryOrCreate"
+            - name: "audit-logs"
+              hostPath: "/var/log/kubernetes"
+              mountPath: "/var/log/kubernetes"
+              readOnly: false
+              pathType: DirectoryOrCreate
+    extraMounts:
+      - hostPath: /Users/erabii784/Documents/comcast/snap/k8s-playground/src/main/resources/audit/policies
+        containerPath: /etc/kubernetes/policies/
+        readOnly: true
+      - hostPath: /Users/erabii784/Documents/comcast/snap/k8s-playground/src/main/resources/audit/logs
+        containerPath: /var/log/kubernetes
+    extraPortMappings:
+      - containerPort: 30008
+        hostPort: 30008
+        listenAddress: 127.0.0.1

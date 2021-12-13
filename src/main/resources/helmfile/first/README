@@ -1,0 +1,5 @@
+install a chart via helmfile:
+
+    helmfile --file prometheus-helmfile.yaml apply --wait
+
+shows a very simple way to deploy a chart

@@ -1,0 +1,51 @@
+---
+# Source: app/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-sample
+data:
+  # You can include additional key value pairs as you do with Opaque Secrets
+  one: YmFyCg==
+  two: YmFyCg==
+---
+# Source: app/templates/pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+
+  volumes:
+    - name: shared-volume
+      emptyDir: {}
+  initContainers:
+    - name: busybox
+      image: busybox
+      volumeMounts:
+        - name: shared-volume
+          mountPath: /nginx-data
+      command: ["/bin/sh"]
+      args: ["-c", "echo '<h1>Hello</h1>' > /nginx-data/index.html"]
+
+      env:
+        - name: PROP_ONE
+          valueFrom:
+            secretKeyRef:
+              key: one
+              name: secret-sample
+        - name: PROP_TWO
+          valueFrom:
+            secretKeyRef:
+              key: two
+              name: secret-sample
+        - name: PROP_THREE
+          value: $(PROP_ONE)
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - name: shared-volume
+          mountPath: /usr/share/nginx/html

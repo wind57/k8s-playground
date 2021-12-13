@@ -1,0 +1,9 @@
+license: accept
+security:
+  #initVolumeAsRoot: true/false
+queueManager:
+  name: "QM1"
+  dev:
+    secret:
+      adminPasswordKey: adminPassword
+      name: mysecret
